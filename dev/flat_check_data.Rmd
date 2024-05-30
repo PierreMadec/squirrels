@@ -1,0 +1,149 @@
+---
+title: "flat_check_data.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+library(stringr)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# check_plus_in_primary_fur_color
+    
+```{r function-check_plus_in_primary_fur_color}
+#' Fonction qui vérifie que la couleur entrée est bien un chaine de caractère 
+#' 
+#' @param vec un vecteur de couleur
+#'
+#' @importFrom  stringr str_detect
+#' 
+#' @return une erreur si le vecteur n’est pas de type “character”
+#' 
+#' @export
+check_plus_in_primary_fur_color <- function(primary_fur_color) {
+  if(isFALSE(is.character(primary_fur_color))) { stop("Le vecteur n'est pas une chaine de caractère")}
+  colors_are_ok <- !str_detect(string = primary_fur_color, pattern = "\\+")
+  return(colors_are_ok)
+}
+```
+  
+```{r example-check_plus_in_primary_fur_color}
+mymtcars <- head(iris)
+check_plus_in_primary_fur_color(as.character(mymtcars$Species))
+```
+  
+```{r tests-check_plus_in_primary_fur_color}
+test_that("check_plus_in_primary_fur_color works", {
+  mymtcars <- head(iris)
+  expect_true(inherits(check_plus_in_primary_fur_color, "function")) 
+  expect_error(check_plus_in_primary_fur_color(mymtcars$Sepal.Width))
+})
+```
+  
+# check_coordinates
+    
+```{r function-check_coordinates}
+#' Fonction qui vérifie si les coordonnées sont correctes
+#' 
+#' 
+#' 
+#' @return
+#' 
+#' @export
+check_coordinates <- function(){
+    
+}
+```
+  
+```{r example-check_coordinates}
+check_coordinates()
+```
+  
+```{r tests-check_coordinates}
+test_that("check_coordinates works", {
+  expect_true(inherits(check_coordinates, "function")) 
+})
+```
+  
+# check_presence_of_required_columns
+    
+```{r function-check_presence_of_required_columns}
+#' Vérifie que toutes les colonnes existent
+#' 
+#' @param un data frame
+#' 
+#' @return un booléen TRUE si tout est OK, et un message d’erreur dans le cas contraire
+#' 
+#' @export
+check_presence_of_required_columns <- function(data){
+    isTRUE(all(names(data) %in% c("primary_fur_color", "long", "lat")))
+  }
+```
+  
+```{r example-check_presence_of_required_columns}
+check_presence_of_required_columns(squirrels::data_demo_squirrels)
+check_presence_of_required_columns(mtcars)
+
+```
+  
+```{r tests-check_presence_of_required_columns}
+test_that("check_presence_of_required_columns works", {
+  expect_true(check_presence_of_required_columns(squirrels::data_demo_squirrels)
+) 
+})
+```
+  
+# filter_squirrels_data_based_on_integrity
+    
+```{r function-filter_squirrels_data_based_on_integrity}
+#' Vérifie l'intégrité d'un data frame 
+#' 
+#' @param data un data frame
+#' 
+#' @return un message : df_valid_data : données “valides” au niveau des couleurs et des coordonnées, df_invalid_data : données “invalides” au niveau des couleurs et des coordonnées, df_missing_data : données pour lesquelles la validité n’a pu être vérifiée
+#' 
+#' @export
+filter_squirrels_data_based_on_integrity <- function(data) {
+  if (isTRUE(all(
+    check_presence_of_required_columns(data),
+    check_plus_in_primary_fur_color(data$primary_fur_color)
+  ))) {
+    message("df_valid_data")
+  } else {
+    if ((isFALSE(
+      all(
+        check_presence_of_required_columns(data),
+        check_plus_in_primary_fur_color(data$primary_fur_color)
+      )
+    ))) {
+      message("df_invalid_data")
+    }
+  }
+}
+```
+  
+  
+```{r example-filter_squirrels_data_based_on_integrity}
+filter_squirrels_data_based_on_integrity(squirrels::data_demo_squirrels)
+```
+  
+```{r tests-filter_squirrels_data_based_on_integrity}
+test_that("filter_squirrels_data_based_on_integrity works", {
+  expect_message(filter_squirrels_data_based_on_integrity(squirrels::data_demo_squirrels)
+, "df_valid_data") 
+})
+```
+    
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_check_data.Rmd", vignette_name = "check data")
+```
