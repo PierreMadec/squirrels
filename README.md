@@ -15,10 +15,12 @@ You can install the development version of squirrels like so:
 ``` r
 # install.package("")
 ```
+Ce package a été créé dans le cadre d’une formation N2
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to solve a common problem
+
 
 ``` r
 library(squirrels)
