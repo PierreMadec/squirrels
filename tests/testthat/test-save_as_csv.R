@@ -11,6 +11,7 @@ test_that("save_as_csv works", {
 })
 test_that("save_as_csv works", {
   expect_error(save_as_csv(2,2)) 
-})
+}
+)
 
 

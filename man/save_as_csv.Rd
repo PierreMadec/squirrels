@@ -4,7 +4,7 @@
 \alias{save_as_csv}
 \title{Une fonction qui prend en paramètres un jeu de données et une chaîne de caractères qui correspond au chemin du fichier qui doit être créé  permet d’enregistrer le jeu de données en csv avec la fonction write.csv2() du package {utils} au chemin spécifié renvoie en sortie le chemin complet du csv créé}
 \usage{
-save_as_csv(data, string)
+save_as_csv(data, string, ...)
 }
 \arguments{
 \item{data}{un datafram}
