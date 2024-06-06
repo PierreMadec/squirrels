@@ -38,7 +38,7 @@ if (isFALSE(as.character(string))) {
 #' @return
 #' 
 #' @export
-save_as_csv <- function(data, string) {
+save_as_csv <- function(data, string, ...) {
   if (isFALSE(inherits(string, "character"))) {
     stop("Le chemin doit être une chaine de caractère")
   } 
@@ -46,7 +46,7 @@ save_as_csv <- function(data, string) {
     stop("Les données doivent être sous forme de dataframe")
   }
   else {
-    write.csv(iris, string)
+    write.csv(data, string, ...)
   }
 }
 ```
@@ -69,11 +69,11 @@ test_that("save_as_csv works", {
 })
 test_that("save_as_csv works", {
   expect_error(save_as_csv(2,2)) 
-})
+}
+)
 
 
 ```
- 
 
 ```{r development-inflate, eval=FALSE}
 # Run but keep eval=FALSE to avoid infinite loop

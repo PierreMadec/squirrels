@@ -14,7 +14,7 @@
 #' mon_dossier_temp_aleatoire <- tempfile(pattern = "toto")
 #' dir.create(mon_dossier_temp_aleatoire) # crée le dossier temporaire
 #' file.create(file.path(mon_dossier_temp_aleatoire, save_as_csv(iris, "blabla")))
-save_as_csv <- function(data, string) {
+save_as_csv <- function(data, string, ...) {
   if (isFALSE(inherits(string, "character"))) {
     stop("Le chemin doit être une chaine de caractère")
   } 
@@ -22,6 +22,6 @@ save_as_csv <- function(data, string) {
     stop("Les données doivent être sous forme de dataframe")
   }
   else {
-    write.csv(iris, string)
+    write.csv(data, string, ...)
   }
 }
